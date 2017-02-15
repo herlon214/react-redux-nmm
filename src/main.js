@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 
+// To add to window
+if (!window.Promise) {
+  window.Promise = Promise;
+}
+
 // ========================================================
 // Store Instantiation
 // ========================================================

@@ -36,7 +36,7 @@
       }
     },
     "deploy": {
-      "command": "npm run lint && npm run test && npm run clean && npm run compile",
+      "command": "npm run clean && npm run compile",
       "env": {
         "DEBUG": "app:*"
       }
@@ -84,10 +84,14 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^6.11.6",
     "better-npm-run": "0.0.13",
+    "body-parser": "^1.16.1",
+    "bootstrap-grid": "^2.0.1",
     "compression": "^1.6.2",
     "css-loader": "^0.26.0",
     "cssnano": "^3.7.4",
     "debug": "^2.2.0",
+    "es6-promise": "^4.0.5",
+    "express": "^4.14.1",
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
     "fs-extra": "^1.0.0",
@@ -95,6 +99,7 @@
     "imports-loader": "^0.7.0",
     "ip": "^1.1.2",
     "json-loader": "^0.5.4",
+    "material-ui": "^0.16.7",
     "node-sass": "^4.0.0",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.1.0",
@@ -102,13 +107,16 @@
     "react-dom": "^15.0.0",
     "react-redux": "^5.0.1",
     "react-router": "^3.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.0.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.0",
+    "snapsvg": "^0.5.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
+    "whatwg-fetch": "^2.0.2",
     "yargs": "^6.3.0"
   },
   "devDependencies": {
