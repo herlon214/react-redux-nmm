@@ -26,6 +26,6 @@ app.post('/game', (req, res) => {
   res.json({turn: req.body.turn == 0 ? 1 : 0, plays: move.nextMove})
 })
 
-app.listen(8080, function () {
-  console.log('Example app listening on port 8080!');
+app.listen(80, function () {
+  console.log('Example app listening on port 80!');
 });
