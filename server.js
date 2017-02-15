@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Nmm = require('./Nmm')
+var path = require('path');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -16,7 +17,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/*', function (req, res) {
-  res.sendFile('./dist/index.html')
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
 const bestMove = (state, player) => {
