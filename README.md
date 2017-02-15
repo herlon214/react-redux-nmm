@@ -6,6 +6,4 @@ The board consists of a grid with twenty-four intersections or points. Each play
 
 ### Run
 
-```
-npm install && npm run start
-```
+`npm install && npm run start`
