@@ -37,7 +37,7 @@ app.post('/game', (req, res) => {
   let game = new Nmm(1);
   let move = game.nextMove({state: req.body.plays}, 0, req.body.turn)
   console.log(move.nextMove, move.score)
-  res.json({turn: req.body.turn == 0 ? 1 : 0, plays: move.nextMove})
+  res.json({turn: req.body.turn == 0 ? 1 : 0, plays: move.nextMove, score: move.score})
 })
 
 var PORT = process.env.PORT || 3052;
