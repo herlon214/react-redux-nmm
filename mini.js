@@ -47,24 +47,27 @@ class Minimax {
 
     states.children = states.children.map((cState) => {
       cState.score = this.isTerminalState(cState, player)
-
+      
       // If has a lower score doesn't see the childrens
-      let newStates = this.nextMove(cState, depth, player);
-      if(typeof newStates.children !== "undefined") {
-        newStates.children.children.map((child) => {
-          if(child.score > state.score) {
-            state.score = child.score
-            state.nextMove = newStates.state
-          }
-        })
-      }else {
-        if(newStates.score > state.score) {
-          state.score = newStates.score
-          state.nextMove = newStates.state
+      if(newStates.score > state.score) {
+        state.score = newStates.score
+        state.nextMove = newStates.state
+        
+        let newStates = this.nextMove(cState, depth, player);
+        if(typeof newStates.children !== "undefined") {
+          newStates.children.children.map((child) => {
+            if(child.score > state.score) {
+              state.score = child.score
+              state.nextMove = newStates.state
+            }
+          })
         }
+        
+        return newStates
       }
-
-      return newStates
+    
+      return cState;
+      
     })
 
     state.children = states;
