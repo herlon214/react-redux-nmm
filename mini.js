@@ -33,41 +33,43 @@ class Minimax {
 
   // minimax algorithm
   nextMove(state, depth = 0, player) {
-    if(depth == 3) return -1;
-
-
-    if(this.isTerminalState(state.state) >= 0) {
-      state.score = this.isTerminalState(state.state);
-
+    state.score = this.isTerminalState(state, player)
+    if(depth == 3) {
       return state;
     }
 
+    let scores = []
+    let moves = []
+
     depth += 1;
     let states = this.possibilities(state.state, player)
-    states.score = player == 1 ? -9000 : 9000
     if(states.children.length == 0) return states.score;
-    states.children = states.children.map((state) => {
-      let newStates = this.nextMove(state, depth, this.changeTurn(player));
-      if(typeof newStates.score !== "undefined") {
-        if(player == 1)  {
-          states.score = Math.min(newStates.score, states.score)
-        }else {
-          states.score = Math.max(newStates.score, states.score)
+
+    states.children = states.children.map((cState) => {
+      cState.score = this.isTerminalState(cState, player)
+
+      // If has a lower score doesn't see the childrens
+      let newStates = this.nextMove(cState, depth, player);
+      if(typeof newStates.children !== "undefined") {
+        newStates.children.children.map((child) => {
+          if(child.score > state.score) {
+            state.score = child.score
+            state.nextMove = newStates.state
+          }
+        })
+      }else {
+        if(newStates.score > state.score) {
+          state.score = newStates.score
+          state.nextMove = newStates.state
         }
-        states.score = newStates.score
-        states.nextMove = newStates.state
       }
-
-
 
       return newStates
     })
 
+    state.children = states;
 
-    return {
-      state: state,
-      children: states
-    };
+    return state
   }
 }
 

@@ -22,38 +22,58 @@ class Nmm extends Minimax {
   }
 
   // @Override
-  isTerminalState(state) {
-    const players = [0, 1]
-    for(let i in players) {
+  isTerminalState({state}, player) {
+    let bestMove = 0;
+    let i = 0;
 
-      // Horizontal wins
-      if(state[0] == `player${i}` && state[1] == `player${i}` && state[2] == `player${i}`) return i;
-      if(state[3] == `player${i}` && state[4] == `player${i}` && state[5] == `player${i}`) return i;
-      if(state[6] == `player${i}` && state[7] == `player${i}` && state[8] == `player${i}`) return i;
-      if(state[9] == `player${i}` && state[10] == `player${i}` && state[11] == `player${i}`) return i;
-      if(state[12] == `player${i}` && state[13] == `player${i}` && state[14] == `player${i}`) return i;
-      if(state[15] == `player${i}` && state[16] == `player${i}` && state[17] == `player${i}`) return i;
-      if(state[18] == `player${i}` && state[19] == `player${i}` && state[20] == `player${i}`) return i;
-      if(state[21] == `player${i}` && state[22] == `player${i}` && state[23] == `player${i}`) return i;
-
-      // Vertical wins
-      if(state[0] == `player${i}` && state[9] == `player${i}` && state[22] == `player${i}`) return i;
-      if(state[3] == `player${i}` && state[10] == `player${i}` && state[18] == `player${i}`) return i;
-      if(state[6] == `player${i}` && state[11] == `player${i}` && state[16] == `player${i}`) return i;
-      if(state[1] == `player${i}` && state[4] == `player${i}` && state[7] == `player${i}`) return i;
-      if(state[16] == `player${i}` && state[20] == `player${i}` && state[22] == `player${i}`) return i;
-      if(state[8] == `player${i}` && state[12] == `player${i}` && state[17] == `player${i}`) return i;
-      if(state[5] == `player${i}` && state[13] == `player${i}` && state[20] == `player${i}`) return i;
-      if(state[2] == `player${i}` && state[14] == `player${i}` && state[23] == `player${i}`) return i;
-
-      // Cross wins
-      if(state[0] == `player${i}` && state[3] == `player${i}` && state[6] == `player${i}`) return i;
-      if(state[8] == `player${i}` && state[5] == `player${i}` && state[2] == `player${i}`) return i;
-      if(state[21] == `player${i}` && state[18] == `player${i}` && state[15] == `player${i}`) return i;
-      if(state[23] == `player${i}` && state[20] == `player${i}` && state[17] == `player${i}`) return i;
+    // Nearest moves
+    for(i = 0; i < (state.length - 1); i++) {
+      if(player == 0) {
+        if(state[i] == `player0` && state[i++] == `player0`) bestMove++
+      }else {
+        if(state[i] == `player1` && state[i++] == `player1`) bestMove--
+      }
     }
 
-    return -1;
+    i = player
+
+    // Horizontal wins
+    if(
+      (state[0] == `player${i}` && state[1] == `player${i}` && state[2] == `player${i}`) ||
+      (state[3] == `player${i}` && state[4] == `player${i}` && state[5] == `player${i}`) ||
+      (state[6] == `player${i}` && state[7] == `player${i}` && state[8] == `player${i}`) ||
+      (state[9] == `player${i}` && state[10] == `player${i}` && state[11] == `player${i}`) ||
+      (state[12] == `player${i}` && state[13] == `player${i}` && state[14] == `player${i}`) ||
+      (state[15] == `player${i}` && state[16] == `player${i}` && state[17] == `player${i}`) ||
+      (state[18] == `player${i}` && state[19] == `player${i}` && state[20] == `player${i}`) ||
+      (state[21] == `player${i}` && state[22] == `player${i}` && state[23] == `player${i}`) ||
+
+      // Vertical wins
+      (state[0] == `player${i}` && state[9] == `player${i}` && state[22] == `player${i}`) ||
+      (state[3] == `player${i}` && state[10] == `player${i}` && state[18] == `player${i}`) ||
+      (state[6] == `player${i}` && state[11] == `player${i}` && state[16] == `player${i}`) ||
+      (state[1] == `player${i}` && state[4] == `player${i}` && state[7] == `player${i}`) ||
+      (state[16] == `player${i}` && state[20] == `player${i}` && state[22] == `player${i}`) ||
+      (state[8] == `player${i}` && state[12] == `player${i}` && state[17] == `player${i}`) ||
+      (state[5] == `player${i}` && state[13] == `player${i}` && state[20] == `player${i}`) ||
+      (state[2] == `player${i}` && state[14] == `player${i}` && state[23] == `player${i}`) ||
+
+      // Cross wins
+      (state[0] == `player${i}` && state[3] == `player${i}` && state[6] == `player${i}`) ||
+      (state[8] == `player${i}` && state[5] == `player${i}` && state[2] == `player${i}`) ||
+      (state[21] == `player${i}` && state[18] == `player${i}` && state[15] == `player${i}`) ||
+      (state[23] == `player${i}` && state[20] == `player${i}` && state[17] == `player${i}`)
+    ) {
+
+      if(player == 0) {
+        bestMove = bestMove * 9000
+      }else {
+        bestMove = bestMove * -9000
+      }
+    }
+
+
+    return bestMove;
 
   }
 

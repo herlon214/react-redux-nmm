@@ -19,14 +19,28 @@ app.get('/*', function (req, res) {
   res.sendFile('./dist/index.html')
 });
 
+const bestMove = (state, player) => {
+  let scores = []
+  let moves = []
+  if(state.children) {
+    state.children.forEach((child) => {
+      bestMove(child, player)
+    })
+  }else {
+    return state.score;
+  }
+
+
+}
+
 app.post('/game', (req, res) => {
   let game = new Nmm(1);
   let move = game.nextMove({state: req.body.plays}, 0, req.body.turn)
-  console.log(move)
+  console.log(move.nextMove, move.score)
   res.json({turn: req.body.turn == 0 ? 1 : 0, plays: move.nextMove})
 })
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3052;
 
 app.listen(PORT, function () {
   console.log(`Example app listening on port ${PORT}!`);

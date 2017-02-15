@@ -61,7 +61,7 @@ export function setWinner(turn) {
 export function getNextMovement() {
   return (dispatch, getState) => {
     dispatch(setLoading(true))
-    fetch('http://localhost:3052/game', {
+    fetch('/game', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
