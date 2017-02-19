@@ -20,25 +20,11 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-const bestMove = (state, player) => {
-  let scores = []
-  let moves = []
-  if(state.children) {
-    state.children.forEach((child) => {
-      bestMove(child, player)
-    })
-  }else {
-    return state.score;
-  }
-
-
-}
-
 app.post('/game', (req, res) => {
   let game = new Nmm(1);
-  let move = game.nextMove({state: req.body.plays}, 0, req.body.turn)
-  console.log(move.nextMove, move.score)
-  res.json({turn: req.body.turn == 0 ? 1 : 0, plays: move.nextMove, score: move.score})
+  let move = game.minimax(req.body.plays, req.body.turn, 0)
+  console.log(move)
+  res.json({turn: req.body.turn == 0 ? 1 : 0, plays: move.board, score: move.score})
 })
 
 var PORT = process.env.PORT || 3052;

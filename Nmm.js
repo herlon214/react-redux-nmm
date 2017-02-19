@@ -22,7 +22,7 @@ class Nmm extends Minimax {
   }
 
   // @Override
-  isTerminalState({state}, player) {
+  getScore(state, player) {
     let bestMove = 0;
     let i = 0;
 
@@ -86,14 +86,11 @@ class Nmm extends Minimax {
           return arr; // clones the array without reference
         })
         newPosiblity[i] = `player${player}`;
-        possibility.push({state: newPosiblity});
+        possibility.push({board: newPosiblity, score: this.getScore(newPosiblity)});
       }
     }
 
-    return {
-      state: state,
-      children: possibility
-    }
+    return possibility
 
   }
 }

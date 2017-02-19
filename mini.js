@@ -8,13 +8,13 @@ class Minimax {
   }
 
   // @return Number that represent who won
-  getScore(player) {
+  winning(player) {
     return player == 1 ? 10 : -10;
   }
 
   // Dectect who won the game
   // @return number of the score of who won
-  isTerminalState(state) {
+  getScore(state) {
     throw new Error("Terminal state function not defined")
   }
 
@@ -31,49 +31,48 @@ class Minimax {
   }
 
 
-  // minimax algorithm
-  nextMove(state, depth = 0, player) {
-    state.score = this.isTerminalState(state, player)
-    if(depth == 3) {
-      return state;
+  minimax(board, player, depth) {
+    if(depth == 4) return {score: this.getScore(board, player), board: board}
+
+    depth++;
+    let moves = []
+    let avaiableMoves = this.possibilities(board, player)
+
+    if(avaiableMoves.length == 0) return {score: this.getScore(board, player), board: board}
+
+    for(let i = 0; i < avaiableMoves.length; i++) {
+      let move = {}
+      move.board = avaiableMoves[i].board
+      let result = this.minimax(move.board, player == 1 ? 0 : 1, depth)
+      move.score = result.score;
+
+      moves.push(move)
     }
 
-    let scores = []
-    let moves = []
-
-    depth += 1;
-    let states = this.possibilities(state.state, player)
-    if(states.children.length == 0) return states.score;
-
-    states.children = states.children.map((cState) => {
-      cState.score = this.isTerminalState(cState, player)
-      
-      // If has a lower score doesn't see the childrens
-      if(newStates.score > state.score) {
-        state.score = newStates.score
-        state.nextMove = newStates.state
-        
-        let newStates = this.nextMove(cState, depth, player);
-        if(typeof newStates.children !== "undefined") {
-          newStates.children.children.map((child) => {
-            if(child.score > state.score) {
-              state.score = child.score
-              state.nextMove = newStates.state
-            }
-          })
+    // Choose the best move
+    let bestMove;
+    if(player == 1) { // A.I Player
+      let bestScore = -10000
+      for(let i = 0; i < moves.length; i++) {
+        if(moves[i].score > bestScore) {
+          bestScore = moves[i].score
+          bestMove = i
         }
-        
-        return newStates
       }
-    
-      return cState;
-      
-    })
+    }else {
+      let bestScore = 10000
+      for(let i = 0; i < moves.length; i++) {
+        if(moves[i].score < bestScore) {
+          bestScore = moves[i].score
+          bestMove = i
+        }
+      }
+    }
 
-    state.children = states;
+    return moves[bestMove]
 
-    return state
   }
+
 }
 
 module.exports = Minimax;
